@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Poppins&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+    <title>YTTasks</title>
+</head>
+<body>
+   <div class="form-container">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+            <h3>Welcome Back</h3>
+        </div>
+        <form action="{% url 'accounts:login_yttasker' %}" method="post">
+            {% csrf_token %}
+            <input type="email" placeholder="Email Address" name="email" id="email" required>
+            <input type="password" placeholder="Password" name="password" id="password">
+            <button type="submit">Continue</button>
+            
+        </form>
+        <small>Need an account? <a href="{% url 'accounts:create_yttasker' %}">SignUp here</a></small>
+
+       
+   </div>
+</body>
+</html>

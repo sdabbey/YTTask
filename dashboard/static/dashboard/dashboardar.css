@@ -1,0 +1,348 @@
+.main {
+  width: 100%;
+  height: calc(100% - 120px);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.main .main-content {
+  width: 80%;
+  padding: 2rem;
+  gap: 15px;
+  position: relative;
+}
+.main .main-content span {
+  font-weight: normal;
+  font-size: 1.1em;
+  font-family: "Poppins";
+}
+
+.main .main-content .card-container {
+  width: 90%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  gap: 15px;
+  padding: 1rem 0rem;
+
+}
+.main .main-content .card-container::-webkit-scrollbar {
+  width: 0.5rem;
+  background: transparent;
+  height: 2rem;
+}
+.main .main-content .card-container::-webkit-scrollbar-thumb {
+  height: 2rem;
+  border-radius: 20px 20px;
+  margin: 20rem;
+  background-color: rgba(211, 211, 211, 0.3647058824);
+}
+.main .main-content .card-container::-webkit-scrollbar-track {
+  width: 2%;
+  padding: 4rem;
+}
+.main .main-content .card-container::-webkit-scrollbar-track-piece {
+  width: 20px;
+}
+.main .main-content .card-container .card {
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  height: 100px;
+  background-color: rgba(211, 211, 211, 0.3647058824);
+  box-sizing: border-box;
+  position: relative;
+  transition: all 4s ease;
+  flex-direction: column;
+  font-family: "Open Sans";
+}
+
+.main .main-content .card-container .card .card-num{
+
+  width: 100%;
+  box-sizing: border-box;
+  padding: .2rem .5rem;
+  font-weight: bold;
+}
+
+
+.main .main-content .card-container .card .card-content {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+
+}
+.main .main-content .card-container .card .card-content .first{
+
+  width: 60%;
+  display: flex;
+  padding: .5rem;
+  align-items: center;
+  justify-content: space-around;
+}
+.main .main-content .card-container .card .card-content .first .points {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.3em;
+  font-weight: bolder;
+  font-family: "Ubuntu";
+  color: #17C245;
+  align-items: center;
+}
+
+.main .main-content .card-container .card .card-content .first input{
+  width: 40%;
+  border: none;
+  border-radius: 5px;
+  background-color: #d3d3d3bb;
+  height: 90%;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+
+.main .main-content .card-container .card .card-content .action {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 .5rem;
+  
+}
+.main .main-content .card-container .card .card-content .btn {
+  text-decoration: none;
+  padding: 0.8rem 0.9rem;
+  background-color: black;
+  color: white;
+  font-family: "Poppins";
+  border-radius: 5px;
+  display: flex;
+  font-size: 0.9em;
+  align-items: center;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  justify-content: space-around;
+}
+.main .main-content .card-container .card .card-content .action form{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: .5rem;
+
+  justify-content: space-around;
+}
+.main .main-content .card-container .card .card-content .action form input{
+  width: 60%;
+  border: none;
+  border-radius: 5px;
+  background-color: #d3d3d3bb;
+  height: 90%;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Poppins";
+
+}
+.main .main-content .card-container .card .card-content .action form input.hidden_task{
+  visibility: hidden;
+  width: 0;
+}
+.main .main-content .card-container .card .card-content .action form input::-webkit-outer-spin-button,
+.main .main-content .card-container .card .card-content .action form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.main .main-content .card-container .card .card-content .action .completed{
+ 
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-around;
+  padding: .4rem;
+}
+.main .main-content .card-container .card .card-content .action .completed i.bx{
+  color: #17C245;
+  font-size: 35px;
+}
+.main .main-content .card-container .card .card-content .action .completed small{
+  font-weight: bolder;
+  font-family: "Open Sans";
+  font-size: 1em;
+  color: #17C245;
+}
+@media screen and (max-width: 1024px) {
+  .main .main-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    gap: 15px;
+  }
+  .main .main-content span {
+    font-weight: normal;
+    font-size: 1.1em;
+    font-family: "Poppins";
+  }
+  .main .main-content .card-container {
+    padding: 0.5rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: flex;
+    align-items: flex-start;
+    height: 90%;
+    width: 100%;
+
+  }
+  .main .main-content .card-container .card {
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    min-height: 100px;
+    height:fit-content;
+    background-color: rgba(211, 211, 211, 0.3647058824);
+    box-sizing: border-box;
+    position: relative;
+    transition: all 4s ease;
+
+  }
+  .main .main-content .card-container .card .card-num{
+    padding: .2rem .5rem;
+  }
+  
+  .main .main-content .card-container .card .card-content {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+  }
+  .main .main-content .card-container .card .card-content .first{
+    width: 100%;
+
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .main .main-content .card-container .card .card-content .first input{
+    font-size: .7em;
+    width: 50%;
+
+  }
+  .main .main-content .card-container .card .card-content .first .btn{
+    width: fit-content;
+    border: 1px solid black;
+  } 
+  .main .main-content .card-container .card .card-content .first .points {
+    width: fit-content;
+   
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1em;
+    font-weight: bolder;
+    font-family: "Ubuntu";
+    color: #17C245;
+    align-items: center;
+  }
+  .main .main-content .card-container .card .card-content .action {
+    width: 100%;
+    height: fit-content;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+  .main .main-content .card-container .card .card-content .btn {
+    text-decoration: none;
+    padding: 0.8rem;
+    background-color: black;
+    color: white;
+    font-family: "Poppins";
+    border-radius: 5px;
+    display: flex;
+    font-size: 0.6em;
+    align-items: center;
+    white-space: nowrap;
+
+    gap: 5px;
+    justify-content: center;
+  }
+  .main .main-content .card-container .card .card-content .action{
+    width: 100%;
+
+    padding: 0;
+  }
+  .main .main-content .card-container .card .card-content .action form{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: .4rem;
+    justify-content: space-between;
+
+    gap: 0;
+  }
+  .main .main-content .card-container .card .card-content .action form input{
+    padding: .8rem .4rem;
+    width: 70%;
+    height: 100%;
+    border: none;
+    border-radius: .5rem;
+    font-size: .7em;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0 !important;
+  
+  }
+  .main .main-content .card-container .card .card-content .action form .btn{
+    font-size: .5em;
+    width: 30%;
+    margin: 0 !important;
+    border: 1px solid black
+  }
+  .main .main-content .card-container .card .card-content .action form input.hidden_task{
+    visibility: hidden;
+    width: 0;
+  }
+  .main .main-content .card-container .card .card-content .action form input::-webkit-outer-spin-button,
+  .main .main-content .card-container .card .card-content .action form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .main .main-content .card-container .card .card-content .action .completed{
+  
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-around;
+    padding: .4rem;
+  }
+  .main .main-content .card-container .card .card-content .action .completed i.bx{
+    color: #17C245;
+    font-size: 24px;
+  }
+  .main .main-content .card-container .card .card-content .action .completed small{
+    font-weight: bolder;
+    font-family: "Open Sans";
+    color: #17C245;
+    font-size: .9em;
+  }
+
+}/*# sourceMappingURL=dashboard.css.map */

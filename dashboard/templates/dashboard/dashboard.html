@@ -1,0 +1,151 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block custom-css %}
+<link rel="stylesheet" href="{% static 'dashboard/dashboardar.css' %}">
+{% endblock custom-css %}
+{% block sidebar %}
+<div class="sidebar" id="sidebar">
+    <div class="content">
+        <div class="navigation">
+            <li class="active"><a href="#"><i class="bx bx-briefcase"></i>Todays Task</a></li>
+            <li><a href="{% url 'dashboard:notification' %}"><i class="bx bx-notification"></i>Notification</a></li>
+            <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
+        </div>
+        <div class="payout">
+            <small>Payout = <span>${{point_sum |floatformat:"5"}}</span></small>
+        </div>
+        <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
+        
+    </div>
+</div>
+{% endblock sidebar %}
+{% block content %}
+<div class="main">
+   
+    <div class="sidemenu">
+        <li class="active"><a href="#"><i class="bx bx-briefcase"></i>Todays Task</a></li>
+        <li><a href="{% url 'dashboard:notification' %}"><i class="bx bx-notification"></i>Notification</a></li>
+        <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
+        <div class="extra-menu">
+            <div class="payout">
+                <small>Payout = <span>${{point_sum |floatformat:"3"}}</span></small>
+            </div>
+            <small><b>{{request.user.email}}</b></small>
+            <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
+        </div>
+    </div>
+    <div class="main-content">
+        <span>Copy and paste these links into the decryptr engine</span>
+        <div class="card-container">
+            {% for task in tasks  %}
+            <div class="card">
+                <div class="card-num">
+                    <small>{{forloop.counter}}</small>
+                </div>
+                <div class="card-content">
+                    <div class="first">
+                        <input type="text" value="{{task.prompt}}" id="prompt_{{forloop.counter}}" placeholder="{{task.prompt}}">
+                        <div class="points">
+                            <b>${{task.point}}</b>
+                        </div>
+                        <button href="{{task.link}}" class="btn prompt-btn" onclick="copyPrompt('prompt_{{forloop.counter}}'); return false;">Copy Prompt</button>
+        
+                    </div>
+                    <div class="action">
+                        
+                        {% for yttasker_task in yttasker_tasks %}
+                            {% if yttasker_task.task.title == task.title %}
+                                {% if yttasker_task.completed is True and yttasker_task.tasker == request.user %}
+                                <div class="completed">
+                                    <small>Completed</small>
+                                    <i class="bx bx-check-circle"></i>
+                                </div>
+                                {% else %}
+                                
+                                    {% if yttasker_task.completed is False and yttasker_task.tasker == request.user %}
+                                    
+                                    <form action="{% url 'dashboard:check_complete' task.title task.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" placeholder="Enter encoding key" name="check_number" id="">
+                                        <input class="hidden_task" type="text" name="task_title" id="" value="{{task.title}}">
+                                        <button href="#" type="submit" class="btn">verfiy code</button>
+                                    </form>
+                                    {% endif %}
+                                {% endif %}
+                                
+                            {% endif %}
+                        {% endfor %}
+                       
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+       
+    </div>
+</div>
+
+<script>
+  
+ 
+
+  function copyPrompt(promptId) {
+    var promptInput = document.getElementById(promptId);
+        var promptContent = promptInput.value;
+
+        // Create a temporary input element to copy the prompt content
+        var tempInput = document.createElement("input");
+        tempInput.setAttribute("value", promptContent);
+        document.body.appendChild(tempInput);
+
+        // Select the content of the temporary input element
+        tempInput.select();
+        tempInput.setSelectionRange(0, promptContent.length);
+
+        // Copy the selected content to the clipboard
+        document.execCommand("copy");
+
+        // Remove the temporary input element
+        document.body.removeChild(tempInput);
+
+        // Update the button text to show "Copied"
+        var buttons = document.getElementsByClassName("prompt-btn");
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i] === event.target) {
+                buttons[i].innerHTML = "Copied";
+            } else {
+                buttons[i].innerHTML = "Copy Prompt";
+            }
+        }
+}
+        const content_stretch = document.querySelectorAll("#content_description")
+        for(const stretch of content_stretch){
+            stretch.addEventListener("click", ()=>{
+                if(stretch.classList.contains("stretch")){
+                    stretch.innerHTML="Content Description <i class='bx bx-chevron-down'></i>"
+                    stretch.classList.remove("stretch");
+                }else{
+                    stretch.innerHTML="Content Description <i class='bx bx-chevron-up'></i>"
+                    stretch.classList.add("stretch");
+                }
+                
+                
+                
+                const parentDiv = stretch.closest(".description")
+                const cardDiv = stretch.closest(".card")
+                cardDiv.classList.toggle("expand")
+                stretch.classList.toggle("expand")
+                const content_paragraph = parentDiv.querySelector("p")
+                if(content_paragraph){
+
+                    content_paragraph.classList.toggle("expand")
+                }
+            })
+            
+        }
+
+    
+</script>
+{% endblock content %}
+   
