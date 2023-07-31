@@ -5,7 +5,26 @@ body {
   padding: 0;
   margin: 0;
 }
-
+.messages{
+    
+  width: 80%;
+  height: 50px;
+  box-sizing: border-box;
+}
+.messages .alert{
+  display: flex;
+  height: 100%;
+  font-family: "Poppins";
+  font-size: .7em;
+  font-weight: bold;
+  align-items: center;
+}
+.messages .alert-warning{
+  color: rgba(255, 0, 0, 0.712);
+}
+.messages .alert-success{
+  color: rgba(0, 128, 0, 0.795);
+}
 .form-container {
   top: 50%;
   left: 50%;

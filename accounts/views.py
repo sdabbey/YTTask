@@ -43,6 +43,7 @@ def create_yttasker(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 def login_yttasker(request):
+    email = ""
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -52,9 +53,9 @@ def login_yttasker(request):
             login(request, yttasker)
             return redirect('dashboard:dashboard')
         else:
-            messages.error(request, "Email Or Password is incorrect!!",
+            messages.error(request, "Email Or Password is incorrect! Try again",
                                extra_tags='alert alert-warning alert-dismissible fade show')
-    return render(request, "accounts/login.html")
+    return render(request, "accounts/login.html", {"email":email})
 
 def logout_yttasker(request):
     logout(request)
