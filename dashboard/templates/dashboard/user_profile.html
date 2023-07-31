@@ -1,0 +1,96 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block custom-css %}
+  <link rel="stylesheet" href="{% static 'dashboard/user_profile.css' %}">
+{% endblock custom-css %}
+{% block sidebar %}
+<div class="sidebar" id="sidebar">
+    <div class="content">
+        <div class="navigation">
+            <li><a href="{% url 'dashboard:dashboard' %}"><i class="bx bx-briefcase"></i>Todays Task</a></li>
+            <li><a href="{% url 'dashboard:notification' %}"><i class="bx bx-notification"></i>Notification</a></li>
+            <li class="active"><a href="#"><i class="bx bx-user"></i>User Profile</a></li>
+        </div>
+        <div class="payout">
+            <small>Payout = <span>${{point_sum |floatformat:"5"}}</span></small>
+        </div>
+        <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
+        
+    </div>
+</div>
+{% endblock sidebar %}
+{% block content %}
+<div class="main">
+    <div class="sidemenu">
+        <li><a href="{% url 'dashboard:dashboard' %}"><i class="bx bx-briefcase"></i>Todays Task</a></li>
+        <li><a href="{% url 'dashboard:notification' %}"><i class="bx bx-notification"></i>Notification</a></li>
+        <li class="active"><a href="#"><i class="bx bx-user"></i>User Profile</a></li>
+        <div class="extra-menu">
+            <small><b>{{request.user.email}}</b></small>
+            <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="user-form">
+            <h3>User Profile</h3>
+        <form action="{% url 'dashboard:update_profile' request.user.id %}" method="post">
+            {% csrf_token %}
+            {% if request.user.is_staff %}
+                <label for="username">Username</label>
+                <input type="text" placeholder="{{request.user.username}}" name="username" value="{{request.user.username}}">
+                <label for="email">Email</label>
+                <input type="email" readonly name="email" id="email" placeholder="{{request.user.email}}" value="{{request.user.email}}">
+                <label for="momo_number">Momo Number</label>
+                <input type="number" name="momo_number" id="" placeholder="None">
+                <label for="Password">Password</label>
+                <input type="password" readonly name="password" placeholder="**************">
+                <label for="phonenumber">Phone Number</label>
+                <input type="number" name="phonenumber" placeholder="None" id="">
+                <input class="btn" type="submit" placeholder="Update">
+            {% else %}
+                <label for="username">Username</label>
+                <input type="text" placeholder="{{yttasker_profile.username}}" name="username" value="{{yttasker_profile.username}}">
+                <label for="email">Email</label>
+                <input type="email" readonly name="email" id="email" placeholder="{{yttasker_profile.email}}" value="{{yttasker_profile.email}}">
+                <label for="momo_number">Momo Number</label>
+                <input type="number" name="momo_number" id="" placeholder="{{yttasker_profile.momo_number}}" value="{{yttasker_profile.momo_number}}"">
+                <label for="Password">Password</label>
+                <input type="password" readonly name="password" placeholder="*******************" >
+                <label for="phonenumber">Phone Number</label>
+                <input type="number" name="phonenumber" placeholder="{{yttasker_profile.phonenumber}}" id="" value="{{yttasker_profile.phonenumber}}">
+                <input class="btn" placeholder="Update" type="submit" >
+            {% endif %}
+        </form>
+        </div>
+    </div>
+</div>
+
+<script>
+     const content_stretch = document.querySelectorAll("#content_description")
+        for(const stretch of content_stretch){
+            stretch.addEventListener("click", ()=>{
+                if(stretch.classList.contains("stretch")){
+                    stretch.innerHTML="Content Description <i class='bx bx-chevron-down'></i>"
+                    stretch.classList.remove("stretch");
+                }else{
+                    stretch.innerHTML="Content Description <i class='bx bx-chevron-up'></i>"
+                    stretch.classList.add("stretch");
+                }
+                
+                
+                
+                const parentDiv = stretch.closest(".description")
+                const cardDiv = stretch.closest(".card")
+                cardDiv.classList.toggle("expand")
+                stretch.classList.toggle("expand")
+                const content_paragraph = parentDiv.querySelector("p")
+                if(content_paragraph){
+
+                    content_paragraph.classList.toggle("expand")
+                }
+            })
+            
+        }
+
+</script>
+{% endblock content %}

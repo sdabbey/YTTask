@@ -1,0 +1,127 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block custom-css %}
+<link rel="stylesheet" href="{% static 'dashboard/notification.css' %}">
+{% endblock custom-css %}
+{% block sidebar %}
+<div class="sidebar" id="sidebar">
+    <div class="content">
+        <div class="navigation">
+            <li><a href="{% url 'dashboard:dashboard' %}"><i class="bx bx-briefcase"></i>Todays Task</a></li>
+            <li class="active"><a href="#"><i class="bx bx-notification"></i>Notification</a></li>
+            <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
+        </div>
+        <div class="payout">
+            <small>Payout = <span>${{point_sum |floatformat:"5"}}</span></small>
+        </div>
+        <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
+        
+    </div>
+</div>
+{% endblock sidebar %}
+{% block content %}
+<div class="main">
+    <div class="sidemenu">
+        <li><a href="{% url 'dashboard:dashboard' %}"><i class="bx bx-briefcase"></i>Todays Task</a></li>
+        <li class="active"><a href="#"><i class="bx bx-notification"></i>Notification</a></li>
+        <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
+        <div class="extra-menu">
+            <small><b>{{request.user.email}}</b></small>
+            <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
+        </div>
+    </div>
+
+    <div class="main-content">
+                
+        <div class="notification-container">
+            <div class="noti-card-container">
+                <h3>Notifications</h3>
+                <div class="noti-card-list">
+                    {% for notification in notifications  %}
+                       <div class="noti-card">
+                        
+                        <div class="info">
+                            <p>Info: <small>{{notification.pub_date}}</small></p>
+                            <small>{{notification.info}}</small>
+                        </div>
+                       
+                    </div>
+                    {% endfor %}
+                    
+                    <!-- <div class="noti-card">
+                        <div class="date">
+                            <p>Date:</p>
+                            <small>21/09/2023</small>
+                        </div>
+                        <div class="info">
+                            <p>Info:</p>
+                            <small>Payment of 14.59 cedis has been billed to your momo wallet</small>
+                        </div>
+                        <div class="amount">
+                            <p>Amount:</p>
+                            <small><b>14.59 cedis</b></small>
+                        </div>
+                        <div class="status">
+                            <p>Status:</p>
+                            <small><b>Paid</b></small>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="faqs-container">
+                <h3>FAQs</h3>
+                <div class="faqs-list">
+                    
+                    <div class="faqs">
+                        <span class="question" id="question">When do I get paid?</span>
+                        <p class="content">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos cupiditate beatae doloribus porro at nobis iure tenetur distinctio corrupti debitis dicta itaque, commodi expedita iusto ipsam! Iste, dolores quibusdam?
+                        </p>
+                    </div>
+                    <div class="faqs">
+                        <span class="question" id="question">When do I get paid?</span>
+                        <p class="content">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos cupiditate beatae doloribus porro at nobis iure tenetur distinctio corrupti debitis dicta itaque, commodi expedita iusto ipsam! Iste, dolores quibusdam?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     //Notification js
+     const content_stretch = document.querySelectorAll("#question")
+        for(const stretch of content_stretch){
+            stretch.addEventListener("click", ()=>{
+                if(stretch.classList.contains("stretch")){
+                   
+                    stretch.classList.remove("stretch");
+                }else{
+                   
+                    stretch.classList.add("stretch");
+                }
+                
+                
+                
+                const parentDiv = stretch.closest(".faqs")
+               
+                parentDiv.classList.toggle("expand")
+                const content_paragraph = parentDiv.querySelector("p")
+                if(content_paragraph){
+
+                    content_paragraph.classList.toggle("expand")
+                }
+            })
+            
+        }
+</script>
+{% endblock content %}
+   
+
+
+       
+
+    </script>
+</body>
+</html>

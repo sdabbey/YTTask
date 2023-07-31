@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Poppins&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/base.css' %}">
+    {% block custom-css %}
+      
+    {% endblock custom-css %}
+    <title>YTTasks</title>
+</head>
+<body>
+    <nav class="navbar">
+        
+        <div class="nav-logo">
+            <img src=" {% static 'images/logo.png' %}" alt="">
+            <span><a href="{% url 'dashboard:dashboard' %}">YTTasks.gh</a></span>
+        </div>
+
+        <div class="nav-action">
+           
+            <a href="{% url 'accounts:logout_yttasker' %}" class="btn">Logout</a>
+            
+        </div>
+         <!-- Nav-trigger -->
+         <div class="nav-trigger" id="nav-trigger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+    {% block sidebar %}
+      
+    {% endblock sidebar %}
+    
+       
+    {% block content %}
+        
+    {% endblock content %}
+   
+
+
+    <footer class="footer">
+        <span>Copyright &copy YTTasks.com, 2023</span>
+        <small>YTTasks</small>
+    </footer>
+
+
+
+    <script>
+        //Sidebar
+        const navTrigger = document.getElementById("nav-trigger")
+        const sidebar = document.getElementById("sidebar")
+        navTrigger.addEventListener("click", ()=>{
+            navTrigger.classList.toggle("active")
+            sidebar.classList.toggle("active")
+        })
+
+
+        
+        
+       
+    </script>
+</body>
+</html>
