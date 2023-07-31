@@ -1,6 +1,6 @@
 {
     "builds": [{
-        "src": "YTTask_Backend.wsgi.py",
+        "src": "YTTask_Backend/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.8"}
     }],
