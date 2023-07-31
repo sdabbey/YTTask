@@ -71,19 +71,14 @@
             <div class="faqs-container">
                 <h3>FAQs</h3>
                 <div class="faqs-list">
+                    {% for faq in faqs  %}
+                        <div class="faqs">
+                            <span class="question" id="question">{{faq.question}}</span>
+                            <p class="content">{{faq.answer}}</p>
+                        </div>
+                    {% endfor %}
                     
-                    <div class="faqs">
-                        <span class="question" id="question">When do I get paid?</span>
-                        <p class="content">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos cupiditate beatae doloribus porro at nobis iure tenetur distinctio corrupti debitis dicta itaque, commodi expedita iusto ipsam! Iste, dolores quibusdam?
-                        </p>
-                    </div>
-                    <div class="faqs">
-                        <span class="question" id="question">When do I get paid?</span>
-                        <p class="content">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos cupiditate beatae doloribus porro at nobis iure tenetur distinctio corrupti debitis dicta itaque, commodi expedita iusto ipsam! Iste, dolores quibusdam?
-                        </p>
-                    </div>
+                   
                 </div>
             </div>
         </div>
