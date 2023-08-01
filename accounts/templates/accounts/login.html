@@ -30,6 +30,7 @@
                 {% endfor %}
             </div>
         {% endif %}
+        <small>Need an account? <a href="{% url 'accounts:create_yttasker' %}">SignUp here</a></small>
         <form action="{% url 'accounts:login_yttasker' %}" method="post">
             {% csrf_token %}
             <input type="email" placeholder="Email Address" name="email" id="email" value="{{email}}" required>
@@ -37,8 +38,8 @@
             <button type="submit">Continue</button>
             
         </form>
-        <small>Need an account? <a href="{% url 'accounts:create_yttasker' %}">SignUp here</a></small>
-
+        
+        <small>Forgot password? <a href="mailto: dehydrus223@gmail.com">Contact admin</a></small>
        
    </div>
 </body>
