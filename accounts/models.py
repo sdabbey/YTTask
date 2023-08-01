@@ -75,6 +75,9 @@ class Profile(models.Model):
     password = models.CharField(max_length=50)
     phonenumber = PhoneNumberField(null=False, blank=False)
 
+    def __str__(self):
+        return f"{self.yttasker} - {self.password}"
+
     @receiver(post_save, sender=YTTasker)
     def create_yttasker_profile(sender, instance, created, **kwargs):
         if created:
