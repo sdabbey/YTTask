@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Poppins&family=Open+Sans&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
     <link rel="stylesheet" href="{% static 'dashboard/base.css' %}">
     {% block custom-css %}
       
@@ -24,7 +24,9 @@
         </div>
 
         <div class="nav-action">
-           
+            {% block payout %}
+              
+            {% endblock payout %}
             <a href="{% url 'accounts:logout_yttasker' %}" class="btn">Logout</a>
             
         </div>
