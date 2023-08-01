@@ -1,8 +1,13 @@
 {% extends "dashboard/base.html" %}
 {% load static %}
 {% block custom-css %}
-<link rel="stylesheet" href="{% static 'dashboard/dashboardar.css' %}">
+<link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
 {% endblock custom-css %}
+{% block payout %}
+<div class="payout">
+    <small><span>${{point_sum |floatformat:"3"}}</span></small>
+</div>
+{% endblock payout %}
 {% block sidebar %}
 <div class="sidebar" id="sidebar">
     <div class="content">
@@ -12,7 +17,7 @@
             <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
         </div>
         <div class="payout">
-            <small>Payout = <span>${{point_sum |floatformat:"5"}}</span></small>
+            <small>Payout = <span>${{point_sum |floatformat:"3"}}</span></small>
         </div>
         <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
         
@@ -27,14 +32,17 @@
         <li><a href="{% url 'dashboard:notification' %}"><i class="bx bx-notification"></i>Notification</a></li>
         <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
         <div class="extra-menu">
-            <div class="payout">
-                <small>Payout = <span>${{point_sum |floatformat:"3"}}</span></small>
-            </div>
+            
             <small><b>{{request.user.email}}</b></small>
             <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
         </div>
     </div>
+ 
     <div class="main-content">
+        <div class="urgent_message">
+            <span><b>Work begins on 25th August, 2023</b></span>
+            <small>Click <a href="https://t.me/YTTaskers"> this link </a>for next steps</small>
+        </div>
         <span>Copy and paste these links into the decryptr engine</span>
         <div class="card-container">
             {% for task in tasks  %}

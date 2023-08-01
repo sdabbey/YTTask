@@ -69,6 +69,17 @@ body {
 .navbar .nav-action .btn.logout {
   border: 1px solid black;
 }
+.payout{
+  
+  padding: 1rem .5rem;
+  font-size: 1rem;
+ 
+  font-family: "Ubuntu";
+}
+.payout span{
+  color: red;
+  font-size: 1.3rem;
+}
 .navbar .nav-trigger {
   display: none;
 }

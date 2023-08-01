@@ -3,6 +3,11 @@
 {% block custom-css %}
 <link rel="stylesheet" href="{% static 'dashboard/notification.css' %}">
 {% endblock custom-css %}
+{% block payout %}
+<div class="payout">
+    <small>Payout = <span>${{point_sum |floatformat:"3"}}</span></small>
+</div>
+{% endblock payout %}
 {% block sidebar %}
 <div class="sidebar" id="sidebar">
     <div class="content">
@@ -12,7 +17,7 @@
             <li><a href="{% url 'dashboard:user_profile' %}"><i class="bx bx-user"></i>User Profile</a></li>
         </div>
         <div class="payout">
-            <small>Payout = <span>${{point_sum |floatformat:"5"}}</span></small>
+            <small>Payout = <span>${{point_sum |floatformat:"3"}}</span></small>
         </div>
         <li><a href="{% url 'accounts:logout_yttasker' %}">Logout</a></li>
         

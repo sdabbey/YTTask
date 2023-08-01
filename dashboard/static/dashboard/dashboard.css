@@ -181,6 +181,21 @@
   font-size: 1em;
   color: #17C245;
 }
+
+.urgent_message{
+          
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans";
+}
+.urgent_message small{
+  font-weight: bold;
+}
+.urgent_message small a{
+  text-decoration: none;
+  color: rgba(27, 59, 202, 0.76);
+}
 @media screen and (max-width: 1024px) {
   .main .main-content {
     width: 100%;
