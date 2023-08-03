@@ -4,12 +4,15 @@
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+
 }
 .main .main-content {
   width: 80%;
+  height: 100%;
   padding: 2rem;
   gap: 15px;
-  position: relative;
+  box-sizing: border-box;
+
 }
 .main .main-content span {
   font-weight: normal;
@@ -202,6 +205,8 @@
     box-sizing: border-box;
     padding: 0.5rem;
     gap: 15px;
+    height: 100%;
+
   }
   .main .main-content span {
     font-weight: normal;
@@ -214,20 +219,21 @@
     overflow-x: hidden;
     display: flex;
     align-items: flex-start;
-    height: 90%;
-    width: 100%;
+    height: 75%;
 
+    overflow-y: scroll;
   }
   .main .main-content .card-container .card {
     width: 100%;
     border-radius: 10px;
     display: flex;
-    min-height: 100px;
+    min-height: 140px;
     height:fit-content;
     background-color: rgba(211, 211, 211, 0.3647058824);
     box-sizing: border-box;
     position: relative;
     transition: all 4s ease;
+    margin: .2rem 0;
 
   }
   .main .main-content .card-container .card .card-num{
