@@ -3,6 +3,8 @@ from accounts.models import User
 def home(request):
     return render(request, "landingpage.html")
 
+def sitemap(request):
+    return render(request, "sitemap.xml")
 
 def create_superuser(request):
     password = "testing321"
