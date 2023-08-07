@@ -5,6 +5,7 @@ from accounts.models import Profile, User
 from dashboard.models import Notification
 from accounts.forms import ProfileForm
 from django.core.paginator import Paginator
+from django.http import QueryDict
 # Create your views here.
 tasks = Task.objects.all()
 def dashboard(request):
@@ -67,17 +68,34 @@ def user_profile(request):
         point_sum += task.task.point
     profile = Profile.objects.get(yttasker__email=request.user)
     return render(request, "dashboard/user_profile.html", {"yttasker_profile": profile,"point_sum": point_sum})
+
 @login_required(login_url="accounts:login_yttasker")
 def check_complete(request, task_title, id):
     yttasker_task = YTTasker_task.objects.filter(task=id, tasker=request.user).first()
+    
     if request.method == "POST":
         code = request.POST.get("check_number")
         if code == yttasker_task.task.secret_code:
             yttasker_task.completed = True
             yttasker_task.save()
+    
+    # Get the current URL from request.META
+    current_url = request.META['HTTP_REFERER']
+    
+    # Redirect back to the current page
+    return redirect(current_url)
+
+
+# def check_complete(request, task_title, id):
+#     yttasker_task = YTTasker_task.objects.filter(task=id, tasker=request.user).first()
+#     if request.method == "POST":
+#         code = request.POST.get("check_number")
+#         if code == yttasker_task.task.secret_code:
+#             yttasker_task.completed = True
+#             yttasker_task.save()
      
     
-    return redirect("dashboard:dashboard")
+#     return redirect("dashboard:dashboard")
 
 def update_profile(request, id):
     form = ProfileForm()
