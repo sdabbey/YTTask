@@ -11,8 +11,8 @@ from django.db.models import Sum
 @login_required(login_url="accounts:login_yttasker")
 def dashboard(request):
     # Use select_related to fetch related fields of YTTasker_task and Task in a single query
-    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user, completed=True)
-
+    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
+    print(yttasker_tasks)
     # Calculate the point_sum using aggregate to get the sum directly from the database
     point_sum = yttasker_tasks.aggregate(Sum('task__point'))['task__point__sum'] or 0
 
