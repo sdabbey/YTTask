@@ -5,17 +5,33 @@ from accounts.models import Profile, User
 from dashboard.models import Notification
 from accounts.forms import ProfileForm
 # Create your views here.
+
+from django.db.models import Sum
+
 @login_required(login_url="accounts:login_yttasker")
 def dashboard(request):
-    tasks = Task.objects.all()
-    yttasker_task = YTTasker_task.objects.all()
+    # Use select_related to fetch related fields of YTTasker_task in a single query
+    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user, completed=True)
 
-    new_yttasker_task = YTTasker_task.objects.filter(tasker=request.user, completed=True)
-    point_sum = 0
-    for task in new_yttasker_task:
-        point_sum += task.task.point
+    # Use prefetch_related for ManyToManyField (if applicable)
+    tasks = Task.objects.all().prefetch_related('related_model')  # Replace 'related_model' with the related model name
+
+    # Calculate the point_sum using aggregate to get the sum directly from the database
+    point_sum = yttasker_tasks.aggregate(Sum('task__point'))['task__point__sum'] or 0
+
+    return render(request, "dashboard/dashboard.html", {"tasks": tasks, "yttasker_tasks": yttasker_tasks, "point_sum": point_sum})
+
+# @login_required(login_url="accounts:login_yttasker")
+# def dashboard(request):
+#     tasks = Task.objects.all()
+#     yttasker_task = YTTasker_task.objects.all()
+
+#     new_yttasker_task = YTTasker_task.objects.filter(tasker=request.user, completed=True)
+#     point_sum = 0
+#     for task in new_yttasker_task:
+#         point_sum += task.task.point
     
-    return render(request, "dashboard/dashboard.html", {"tasks": tasks, "yttasker_tasks": yttasker_task, "point_sum": point_sum})
+#     return render(request, "dashboard/dashboard.html", {"tasks": tasks, "yttasker_tasks": yttasker_task, "point_sum": point_sum})
 
 @login_required(login_url="accounts:login_yttasker")
 def notification(request):
