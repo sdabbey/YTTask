@@ -14,7 +14,7 @@ def dashboard(request):
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user, completed=True)
 
     # Use prefetch_related for ManyToManyField (if applicable)
-    tasks = Task.objects.all().prefetch_related('Task')  # Replace 'related_model' with the related model name
+    tasks = Task.objects.all().prefetch_related(Task)  # Replace 'related_model' with the related model name
 
     # Calculate the point_sum using aggregate to get the sum directly from the database
     point_sum = yttasker_tasks.aggregate(Sum('task__point'))['task__point__sum'] or 0
