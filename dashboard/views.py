@@ -6,10 +6,10 @@ from dashboard.models import Notification
 from accounts.forms import ProfileForm
 from django.core.paginator import Paginator
 # Create your views here.
-
+tasks = Task.objects.all()
 def dashboard(request):
     # Fetch all tasks
-    tasks = Task.objects.all()
+
 
     # Use only() to fetch specific fields from YTTasker_task and Task
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
