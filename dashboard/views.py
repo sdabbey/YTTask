@@ -20,7 +20,7 @@ def dashboard(request):
     point_sum = sum(point for point in task_points if point is not None)
 
     # Paginate the tasks
-    paginator = Paginator(tasks, 2)  # Show 10 tasks per page
+    paginator = Paginator(tasks, 20)  # Show 10 tasks per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
