@@ -7,21 +7,18 @@ from accounts.forms import ProfileForm
 # Create your views here.
 
 from django.db.models import Sum
-
-@login_required(login_url="accounts:login_yttasker")
 def dashboard(request):
-    # Use select_related to fetch related fields of YTTasker_task and Task in a single query
-    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
-    print(yttasker_tasks)
-    # Calculate the point_sum using aggregate to get the sum directly from the database
-    point_sum = yttasker_tasks.aggregate(Sum('task__point'))['task__point__sum'] or 0
+    # Use only() to fetch specific fields from YTTasker_task and Task
+    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user).only('field1', 'field2')
+    task_points = yttasker_tasks.values_list('task__point', flat=True)
+
+    # Calculate the point_sum directly from the flat list
+    point_sum = sum(task_points)
 
     # Fetch all tasks for the for loop
     tasks = Task.objects.all()
 
     return render(request, "dashboard/dashboard.html", {"tasks": tasks, "yttasker_tasks": yttasker_tasks, "point_sum": point_sum})
-
-
 # @login_required(login_url="accounts:login_yttasker")
 # def dashboard(request):
 #     tasks = Task.objects.all()
