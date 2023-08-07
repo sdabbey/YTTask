@@ -225,6 +225,20 @@
   box-sizing: border-box;
 }
 @media screen and (max-width: 1024px) {
+  .main .main-content .pagination{
+
+    box-sizing: border-box;
+    width: 95%;
+    height: 10%;  
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  
+    font-size: .8em;
+  }
+  .main .main-content .pagination a{
+    padding: .3rem .5rem;
+  }
   .main .main-content {
     width: 100%;
     box-sizing: border-box;
@@ -245,7 +259,7 @@
     display: flex;
     align-items: flex-start;
     height: 68%;
-
+   
     overflow-y: scroll;
   }
   .main .main-content .card-container .card {
