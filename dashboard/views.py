@@ -4,21 +4,35 @@ from .models import *
 from accounts.models import Profile, User
 from dashboard.models import Notification
 from accounts.forms import ProfileForm
+from django.core.paginator import Paginator
 # Create your views here.
 
-from django.db.models import Sum
 def dashboard(request):
+    # Fetch all tasks
+    tasks = Task.objects.all()
+
     # Use only() to fetch specific fields from YTTasker_task and Task
-    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user).only('field1', 'field2')
+    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
     task_points = yttasker_tasks.values_list('task__point', flat=True)
 
     # Calculate the point_sum directly from the flat list
-    point_sum = sum(task_points)
+    point_sum = sum(point for point in task_points if point is not None)
 
-    # Fetch all tasks for the for loop
-    tasks = Task.objects.all()
+    # Paginate the tasks
+    paginator = Paginator(tasks, 3)  # Show 10 tasks per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, "dashboard/dashboard.html", {"tasks": tasks, "yttasker_tasks": yttasker_tasks, "point_sum": point_sum})
+    return render(request, "dashboard/dashboard.html", {
+        "page_obj": page_obj,
+        "yttasker_tasks": yttasker_tasks,
+        "point_sum": point_sum
+    })
+
+
+
+
+
 # @login_required(login_url="accounts:login_yttasker")
 # def dashboard(request):
 #     tasks = Task.objects.all()
