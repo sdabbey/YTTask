@@ -13,13 +13,14 @@ def dashboard(request):
 
     # Use only() to fetch specific fields from YTTasker_task and Task
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
-    task_points = yttasker_tasks.values_list('task__point', flat=True)
+    c_yttasker_tasks = YTTasker_task.objects.filter(tasker=request.user, completed=True)
+    task_points = c_yttasker_tasks.values_list('task__point', flat=True)
 
     # Calculate the point_sum directly from the flat list
     point_sum = sum(point for point in task_points if point is not None)
 
     # Paginate the tasks
-    paginator = Paginator(tasks, 3)  # Show 10 tasks per page
+    paginator = Paginator(tasks, 10)  # Show 10 tasks per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
