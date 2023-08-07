@@ -24,14 +24,14 @@
 
 .main .main-content .card-container {
   width: 90%;
-  height: 80%;
+  height: 75%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   gap: 15px;
   padding: 1rem 0rem;
- 
+
 
 }
 .main .main-content .card-container::-webkit-scrollbar {
@@ -202,6 +202,28 @@
   text-decoration: none;
   color: rgba(27, 59, 202, 0.76);
 }
+
+/* Pagination */
+.main .main-content .pagination{
+
+  box-sizing: border-box;
+  width: 90%;
+  height: 9%;  
+  display: flex;
+  align-items: center;
+}
+.main .main-content .pagination .current{
+  font-size: .9em;
+
+}
+.main .main-content .pagination a{
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  background:black;
+  padding: .2rem 1rem;
+  box-sizing: border-box;
+}
 @media screen and (max-width: 1024px) {
   .main .main-content {
     width: 100%;
@@ -222,7 +244,7 @@
     overflow-x: hidden;
     display: flex;
     align-items: flex-start;
-    height: 75%;
+    height: 68%;
 
     overflow-y: scroll;
   }
