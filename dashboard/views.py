@@ -10,16 +10,17 @@ from django.db.models import Sum
 
 @login_required(login_url="accounts:login_yttasker")
 def dashboard(request):
-    # Use select_related to fetch related fields of YTTasker_task in a single query
+    # Use select_related to fetch related fields of YTTasker_task and Task in a single query
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user, completed=True)
-
-    # Use prefetch_related for ManyToManyField (if applicable)
-    tasks = Task.objects.all().prefetch_related(Task)  # Replace 'related_model' with the related model name
 
     # Calculate the point_sum using aggregate to get the sum directly from the database
     point_sum = yttasker_tasks.aggregate(Sum('task__point'))['task__point__sum'] or 0
 
+    # Fetch all tasks for the for loop
+    tasks = Task.objects.all()
+
     return render(request, "dashboard/dashboard.html", {"tasks": tasks, "yttasker_tasks": yttasker_tasks, "point_sum": point_sum})
+
 
 # @login_required(login_url="accounts:login_yttasker")
 # def dashboard(request):
