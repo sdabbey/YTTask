@@ -38,7 +38,7 @@ class Notification(models.Model):
         return self.info
 
 
-class Question(models.Model):
+class FAQ(models.Model):
     question = models.CharField(max_length=500)
     answer = models.TextField()
 

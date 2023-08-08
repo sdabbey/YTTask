@@ -4,4 +4,4 @@ from .models import *
 admin.site.register(Task)
 admin.site.register(YTTasker_task)
 admin.site.register(Notification)
-admin.site.register(Question)
+admin.site.register(FAQ)
