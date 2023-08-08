@@ -19,16 +19,19 @@ def dashboard(request):
 
     # Calculate the point_sum directly from the flat list
     point_sum = sum(point for point in task_points if point is not None)
-
+    if YTTasker_payout.objects.filter(tasker__email=request.user).exists():
+        pass
+    else:
+        YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
     # Paginate the tasks
     paginator = Paginator(tasks, 10)  # Show 10 tasks per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
+    this_yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user).payout
     return render(request, "dashboard/dashboard.html", {
         "page_obj": page_obj,
         "yttasker_tasks": yttasker_tasks,
-        "point_sum": point_sum
+        "point_sum": this_yttasker_payout
     })
 
 
@@ -78,6 +81,11 @@ def check_complete(request, task_title, id):
         if code == yttasker_task.task.secret_code:
             yttasker_task.completed = True
             yttasker_task.save()
+
+            yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user)
+            print(yttasker_payout)
+            yttasker_payout.payout = yttasker_payout.payout + yttasker_task.task.point
+            yttasker_payout.save()
     
     # Get the current URL from request.META
     current_url = request.META['HTTP_REFERER']
