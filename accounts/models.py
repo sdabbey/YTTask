@@ -98,18 +98,3 @@ class Profile(models.Model):
                 phonenumber="",  # Set the phonenumber value if necessary
             )
 
-
-class Notification(models.Model):
-    info = models.CharField(max_length=500)
-    pub_date = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __str__(self):
-        return self.info
-
-
-class FAQ(models.Model):
-    question = models.CharField(max_length=500)
-    answer = models.TextField()
-
-    def __str__(self):
-        return self.question
