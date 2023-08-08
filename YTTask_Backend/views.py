@@ -23,6 +23,7 @@ def create_tasks(request):
                 for prompt, secret_code in tasks_data.items()
             ]
             Task.objects.bulk_create(task_objects)
+            return HttpResponse("Successfully created")
 
     return HttpResponse("Access denied")
 
