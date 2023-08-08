@@ -11,8 +11,11 @@ def sitemap(request):
 
 
 def create_yttasker_tasks(tasks):
-    yttasker_tasks = [YTTasker_task(task=task) for task in tasks]
-    YTTasker_task.objects.bulk_create(yttasker_tasks)
+    users = User.objects.all()
+    
+    for user in users:
+        yttasker_tasks = [YTTasker_task(task=task, tasker=user) for task in tasks]
+        YTTasker_task.objects.bulk_create(yttasker_tasks)
 
 def create_tasks(request):
     # Read data from the JSON file
