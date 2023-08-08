@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-*x-)$z#9_xoq$8l0d%8#-@tbi*lrfrhmxjfqj3vbi^t9&(z@=o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = [".vercel.app"]
 #CSRF_TRUSTED_ORIGINS = ['https://6c12-154-160-11-237.ngrok-free.app']
 
@@ -84,14 +84,14 @@ AUTHENTICATION_BACKENDS = [
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DATABASES = {
-    #    'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+       'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
 }
 
-DATABASES['default'] = dj_database_url.config()
+#DATABASES['default'] = dj_database_url.config()
 
 AUTH_USER_MODEL = 'accounts.User'
 
