@@ -20,8 +20,8 @@ def dashboard(request):
 
     # Calculate the point_sum directly from the flat list
     point_sum = sum(point for point in task_points if point is not None)
-    if YTTasker_payout.objects.filter(tasker__email=request.user).exists() is False:
-        YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
+    # if YTTasker_payout.objects.filter(tasker__email=request.user).exists() is False:
+    #     YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
  
         
     # Paginate the tasks
