@@ -5,13 +5,12 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class Task(models.Model):
-    title = models.CharField(max_length=500)
-    description = models.TextField()
+   
     prompt = models.CharField(max_length=500)
-    point = models.FloatField()
+    point = models.FloatField(default=0.02)
     secret_code = models.CharField(max_length=50)
     def __str__(self):
-        return self.title
+        return self.prompt
 
 class YTTasker_task(models.Model):
     tasker = models.ForeignKey(User,  on_delete=models.CASCADE)
