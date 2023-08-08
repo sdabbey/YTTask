@@ -88,20 +88,11 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yttask-postgres',
-        'USER': 'default',
-        'PASSWORD': 'f4gilunxL9pd',
-        'HOST': 'ep-autumn-queen-29793477-pooler.us-east-1.postgres.vercel-storage.com',
-        'PORT': 5432,
-        'OPTIONS': {
-            'sslmode': 'require',
-        }
-    }
+
 }
 
 DATABASES['default'] = dj_database_url.config()
+
 AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation

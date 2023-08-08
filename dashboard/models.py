@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import User
+from accounts.models import User, YTTasker
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 # Create your models here.
@@ -28,13 +28,20 @@ class YTTasker_task(models.Model):
             for user in users:
                 YTTasker_task.objects.create(tasker=user, task=instance)
 
+class YTTasker_payout(models.Model):
+    tasker = models.ForeignKey(User, on_delete=models.CASCADE)
+    payout = models.FloatField()
+
+    def __str__(self):
+        return f'{self.tasker} - ${self.payout}'
+
 class Notification(models.Model):
     info = models.CharField(max_length=500)
     pub_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.info
-    
+
 
 class FAQ(models.Model):
     question = models.CharField(max_length=500)
