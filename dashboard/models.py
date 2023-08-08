@@ -28,12 +28,7 @@ class YTTasker_task(models.Model):
             for user in users:
                 YTTasker_task.objects.create(tasker=user, task=instance)
 
-class YTTasker_payout(models.Model):
-    tasker = models.ForeignKey(User, on_delete=models.CASCADE)
-    payout = models.FloatField()
 
-    def __str__(self):
-        return f'{self.tasker} - ${self.payout}'
 
 class Notification(models.Model):
     info = models.CharField(max_length=500)
