@@ -62,7 +62,7 @@
                     <div class="action">
                         
                         {% for yttasker_task in yttasker_tasks %}
-                            {% if yttasker_task.task.title == task.title %}
+                            
                                 {% if yttasker_task.completed is True and yttasker_task.tasker == request.user %}
                                 <div class="completed">
                                     <small>Completed</small>
@@ -81,7 +81,7 @@
                                     {% endif %}
                                 {% endif %}
                                 
-                            {% endif %}
+                       
                         {% endfor %}
                        
                     </div>
