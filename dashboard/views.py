@@ -58,7 +58,7 @@ def notification(request):
     for task in new_yttasker_task:
         point_sum += task.task.point
     notifications = Notification.objects.all()
-    faqs = Question.objects.all()
+    faqs = FAQ.objects.all()
     return render(request, "dashboard/notification.html", {"notifications": notifications, "faqs": faqs, "point_sum": point_sum})
 
 @login_required(login_url="accounts:login_yttasker")
