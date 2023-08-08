@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from accounts.models import User
-from dashboard.models import Task
+from dashboard.models import Task, YTTasker_task
 import json
 from django.db import transaction
 def home(request):
@@ -8,6 +8,11 @@ def home(request):
 
 def sitemap(request):
     return render(request, "sitemap.xml")
+
+
+def create_yttasker_tasks(tasks):
+    yttasker_tasks = [YTTasker_task(task=task) for task in tasks]
+    YTTasker_task.objects.bulk_create(yttasker_tasks)
 
 def create_tasks(request):
     # Read data from the JSON file
@@ -17,12 +22,16 @@ def create_tasks(request):
 
     # Loop through the tasks data and create Task objects
     if request.user.is_superuser:
-        with transaction.atomic():
-            task_objects = [
-                Task(prompt=prompt, secret_code=secret_code, point=0.02)
-                for prompt, secret_code in tasks_data.items()
-            ]
-            Task.objects.bulk_create(task_objects)
+        tasks_to_create = [
+        Task(prompt=prompt, secret_code=secret_code, point=0.02)
+        for prompt, secret_code in tasks_data.items()
+        ]
+        Task.objects.bulk_create(tasks_to_create)
+        
+        # Call the function to create corresponding YTTasker_task instances
+        create_yttasker_tasks(tasks_to_create)
+        
+        return HttpResponse("Successfully created")
 
     return HttpResponse("Access denied")
 
