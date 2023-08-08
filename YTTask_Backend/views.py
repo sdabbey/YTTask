@@ -16,13 +16,11 @@ def create_tasks(request):
 
     # Loop through the tasks data and create Task objects
     if request.user.is_superuser:
-        for prompt, secret_code in tasks_data.items():
-            Task.objects.create(
-                prompt=prompt,
-                secret_code=secret_code,
-                point=0.02  # Set the default value for the point field
-            )
-        return HttpResponse("Successfully created")
+        task_objects = [
+        Task(prompt=prompt, secret_code=secret_code, point=0.02)
+        for prompt, secret_code in tasks_data.items()
+        ]
+        Task.objects.bulk_create(task_objects)
 
     return HttpResponse("Access denied")
 
