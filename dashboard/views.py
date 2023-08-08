@@ -7,7 +7,8 @@ from accounts.forms import ProfileForm
 from django.core.paginator import Paginator
 from django.http import QueryDict
 # Create your views here.
-tasks = Task.objects.all()
+tasks = Task.objects.all().only('prompt','point', 'secret_code' )
+
 def dashboard(request):
     # Fetch all tasks
 
