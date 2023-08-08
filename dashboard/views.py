@@ -7,7 +7,7 @@ from accounts.forms import ProfileForm
 from django.core.paginator import Paginator
 from django.http import QueryDict
 # Create your views here.
-tasks = Task.objects.all().only('prompt','point', 'secret_code' )
+tasks = Task.objects.all().only('prompt','point', 'secret_code')
 
 def dashboard(request):
     # Fetch all tasks
@@ -15,8 +15,8 @@ def dashboard(request):
 
     # Use only() to fetch specific fields from YTTasker_task and Task
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
-    c_yttasker_tasks = YTTasker_task.objects.filter(tasker=request.user, completed=True)
-    task_points = c_yttasker_tasks.values_list('task__point', flat=True)
+    task_points = YTTasker_task.objects.filter(tasker=request.user, completed=True).values_list('task__point', flat=True)
+    
 
     # Calculate the point_sum directly from the flat list
     point_sum = sum(point for point in task_points if point is not None)
@@ -25,14 +25,14 @@ def dashboard(request):
  
         
     # Paginate the tasks
-    paginator = Paginator(tasks, 5)  # Show 10 tasks per page
+    paginator = Paginator(tasks, 10)  # Show 10 tasks per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    this_yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user).payout
+
     return render(request, "dashboard/dashboard.html", {
         "page_obj": page_obj,
         "yttasker_tasks": yttasker_tasks,
-        "point_sum": this_yttasker_payout
+        "point_sum": YTTasker_payout.objects.get(tasker__email=request.user).payout
     })
 
 
@@ -95,16 +95,6 @@ def check_complete(request, task_title, id):
     return redirect(current_url)
 
 
-# def check_complete(request, task_title, id):
-#     yttasker_task = YTTasker_task.objects.filter(task=id, tasker=request.user).first()
-#     if request.method == "POST":
-#         code = request.POST.get("check_number")
-#         if code == yttasker_task.task.secret_code:
-#             yttasker_task.completed = True
-#             yttasker_task.save()
-     
-    
-#     return redirect("dashboard:dashboard")
 
 def update_profile(request, id):
     form = ProfileForm()
