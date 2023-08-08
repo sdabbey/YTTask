@@ -10,8 +10,9 @@ def sitemap(request):
     return render(request, "sitemap.xml")
 
 
+users = User.objects.all()
 def create_yttasker_tasks(tasks):
-    users = User.objects.all()
+
     
     for user in users:
         yttasker_tasks = [YTTasker_task(task=task, tasker=user) for task in tasks]
