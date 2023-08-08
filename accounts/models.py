@@ -66,7 +66,15 @@ class YTTasker(models.Model):
     momo_number = PhoneNumberField(null=False, blank=False)
     def __str__(self):
         return self.y_user.email
-    
+
+
+class YTTasker_payout(models.Model):
+    tasker = models.ForeignKey(User, on_delete=models.CASCADE)
+    payout = models.FloatField()
+
+    def __str__(self):
+        return f'{self.tasker} - ${self.payout}'
+
 class Profile(models.Model):
     yttasker = models.ForeignKey(YTTasker, on_delete=models.CASCADE)
     username = models.CharField(max_length=100)
@@ -89,3 +97,19 @@ class Profile(models.Model):
                 password=instance.password,  # Set the password value if necessary
                 phonenumber="",  # Set the phonenumber value if necessary
             )
+
+
+class Notification(models.Model):
+    info = models.CharField(max_length=500)
+    pub_date = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.info
+
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=500)
+    answer = models.TextField()
+
+    def __str__(self):
+        return self.question
