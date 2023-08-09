@@ -63,22 +63,24 @@
                         
                         {% for yttasker_task in yttasker_tasks %}
                             
-                                {% if yttasker_task.completed is True and yttasker_task.tasker == request.user %}
+                                {% if yttasker_task.completed is True %}
                                 <div class="completed">
                                     <small>Completed</small>
                                     <i class="bx bx-check-circle"></i>
                                 </div>
+
                                 {% else %}
-                                
-                                    {% if yttasker_task.completed is False and yttasker_task.tasker == request.user %}
-                                    
-                                    <form action="{% url 'dashboard:check_complete' task.title task.id %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="number" placeholder="Enter encoding key" name="check_number" id="">
-                                        <input class="hidden_task" type="text" name="task_title" id="" value="{{task.title}}">
-                                        <button href="#" type="submit" class="btn">verfiy code</button>
-                                    </form>
+                                    {% if task.prompt == yttasker_task.task.prompt and task.secret_code == yttasker_task.task.secret_code %}
+                                        {% if yttasker_task.tasker == request.user %}
+                                        <form action="{% url 'dashboard:check_complete'  task.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="number" placeholder="Enter encoding key" name="check_number" id="">
+                                            <input class="hidden_task" type="text" name="task_title" id="" value="{{task.title}}">
+                                            <button href="#" type="submit" class="btn">verify code</button>
+                                        </form>
+                                        {% endif %}
                                     {% endif %}
+                               
                                 {% endif %}
                                 
                        
