@@ -5,9 +5,9 @@ from accounts.models import Profile, User, YTTasker_payout
 from dashboard.models import Notification
 from accounts.forms import ProfileForm
 from django.core.paginator import Paginator
-from django.http import QueryDict
+
 # Create your views here.
-tasks = Task.objects.all().only('prompt','point', 'secret_code')
+tasks = Task.objects.all()
 
 def dashboard(request):
     # Fetch all tasks
@@ -15,13 +15,18 @@ def dashboard(request):
 
     # Use only() to fetch specific fields from YTTasker_task and Task
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
-    task_points = YTTasker_task.objects.filter(tasker=request.user, completed=True).values_list('task__point', flat=True)
+    print(yttasker_tasks)
+    point_sum=0
+    for yttasker_task in yttasker_tasks:
+        if yttasker_task.completed is True:
+            task_points = point_sum + yttasker_task.task.point
+    #task_points = YTTasker_task.objects.filter(tasker=request.user, completed=True).values_list('task__point', flat=True)
     
 
     # Calculate the point_sum directly from the flat list
-    point_sum = sum(point for point in task_points if point is not None)
-    # if YTTasker_payout.objects.filter(tasker__email=request.user).exists() is False:
-    #     YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
+    #point_sum = sum(point for point in task_points if point is not None)
+    if YTTasker_payout.objects.filter(tasker__email=request.user).exists() is False:
+        YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
  
         
     # Paginate the tasks

@@ -13,19 +13,24 @@ class Task(models.Model):
         return self.prompt
 
 class YTTasker_task(models.Model):
-    tasker = models.ForeignKey(User,  on_delete=models.CASCADE)
+    tasker = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.tasker} - {self.task}'
 
-    @receiver(post_save, sender=Task)
-    def create_yttasker_task(sender, instance, created, **kwargs):
-        users = User.objects.all()
-        if created:
-            for user in users:
-                YTTasker_task.objects.create(tasker=user, task=instance)
+    # @receiver(post_save, sender=Task)
+    # def create_yttasker_task(sender, instance, created, **kwargs):
+    #     if created:
+    #         users = User.objects.all()
+    #         instance.save()
+    #         yttasker_tasks = [
+    #             YTTasker_task(tasker=user, task=instance)
+    #             for user in users
+    #         ]
+    #         YTTasker_task.objects.bulk_create(yttasker_tasks)
+            
 
 
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from accounts.models import User
 from dashboard.models import Task, YTTasker_task
 import json
-from django.db import transaction
+
 def home(request):
     return render(request, "landingpage.html")
 
@@ -15,8 +15,9 @@ def create_yttasker_tasks(tasks):
 
     
     for user in users:
-        yttasker_tasks = [YTTasker_task(task=task, tasker=user) for task in tasks]
-        YTTasker_task.objects.bulk_create(yttasker_tasks)
+        for task in tasks:
+                yttasker_task = YTTasker_task(task=task, tasker=user, completed=False)
+                yttasker_task.save()
 
 def create_tasks(request):
     # Read data from the JSON file
@@ -33,6 +34,8 @@ def create_tasks(request):
         Task.objects.bulk_create(tasks_to_create)
         
         # Call the function to create corresponding YTTasker_task instances
+        for task in tasks_to_create:
+            task.save()
         create_yttasker_tasks(tasks_to_create)
         
         return HttpResponse("Successfully created")
