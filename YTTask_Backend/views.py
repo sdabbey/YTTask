@@ -16,6 +16,8 @@ def create_yttasker_tasks(tasks):
     
     for user in users:
         for task in tasks:
+               
+                task.save()
                 yttasker_task = YTTasker_task(task=task, tasker=user, completed=False)
                 yttasker_task.save()
 
@@ -34,8 +36,7 @@ def create_tasks(request):
         Task.objects.bulk_create(tasks_to_create)
         
         # Call the function to create corresponding YTTasker_task instances
-        for task in tasks_to_create:
-            task.save()
+        
         create_yttasker_tasks(tasks_to_create)
         
         return HttpResponse("Successfully created")
