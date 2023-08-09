@@ -26,11 +26,12 @@ class YTTasker_task(models.Model):
             users = User.objects.all()
             instance.save()
             yttasker_tasks = [
-                YTTasker_task(tasker=user, task=instance)
+                YTTasker_task(tasker=user, task=instance, completed=False)
                 for user in users
             ]
-            YTTasker_task.objects.bulk_create(yttasker_tasks)
-            
+            created_yttasker_tasks = YTTasker_task.objects.bulk_create(yttasker_tasks)
+            for yttasker_task in created_yttasker_tasks:
+                yttasker_task.save()
 
 
 
