@@ -79,7 +79,7 @@ def user_profile(request):
     return render(request, "dashboard/user_profile.html", {"yttasker_profile": profile,"point_sum": point_sum})
 
 @login_required(login_url="accounts:login_yttasker")
-def check_complete(request, task_title, id):
+def check_complete(request, id):
     yttasker_task = YTTasker_task.objects.filter(task=id, tasker=request.user).first()
     
     if request.method == "POST":
