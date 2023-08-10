@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 
 from YTTask_Backend.views import tasks
 
+@login_required(login_url="accounts:login_yttasker")
 def dashboard(request):
     # Fetch all tasks
 
@@ -31,20 +32,21 @@ def dashboard(request):
     # yttasker_payout.save()
 
 
-    yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user)
+    yttasker_payout = YTTasker_payout.objects.filter(tasker__email=request.user).exists()
     if yttasker_payout is False:
         YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
-    yttasker_payout.payout = task_points
-        
+    yttasker_payout = YTTasker_payout.objects.get(tasker=request.user)
+    yttasker_payout.payout = point_sum
+    yttasker_payout.save()
     # Paginate the tasks
-    paginator = Paginator(tasks, 5)  # Show 10 tasks per page
+    paginator = Paginator(tasks, 10)  # Show 10 tasks per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, "dashboard/dashboard.html", {
         "page_obj": page_obj,
         "yttasker_tasks": yttasker_tasks,
-        "point_sum": yttasker_payout.payout
+        "point_sum": YTTasker_payout.objects.get(tasker__email=request.user).payout
     })
 
 
@@ -71,7 +73,7 @@ def notification(request):
         point_sum += task.task.point
     notifications = Notification.objects.all()
     faqs = FAQ.objects.all()
-    return render(request, "dashboard/notification.html", {"notifications": notifications, "faqs": faqs, "point_sum": point_sum})
+    return render(request, "dashboard/notification.html", {"notifications": notifications, "faqs": faqs, "point_sum": YTTasker_payout.objects.get(tasker__email=request.user).payout})
 
 @login_required(login_url="accounts:login_yttasker")
 def user_profile(request):
@@ -83,7 +85,7 @@ def user_profile(request):
     for task in new_yttasker_task:
         point_sum += task.task.point
     profile = Profile.objects.get(yttasker__email=request.user)
-    return render(request, "dashboard/user_profile.html", {"yttasker_profile": profile,"point_sum": point_sum})
+    return render(request, "dashboard/user_profile.html", {"yttasker_profile": profile,"point_sum": YTTasker_payout.objects.get(tasker__email=request.user).payout})
 
 @login_required(login_url="accounts:login_yttasker")
 def check_complete(request, id):
