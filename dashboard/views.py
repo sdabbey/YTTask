@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 
 
 
-tasks = Task.objects.all()
+from YTTask_Backend.views import tasks
 
 def dashboard(request):
     # Fetch all tasks
@@ -37,7 +37,7 @@ def dashboard(request):
     yttasker_payout.payout = task_points
         
     # Paginate the tasks
-    paginator = Paginator(tasks, 10)  # Show 10 tasks per page
+    paginator = Paginator(tasks, 5)  # Show 10 tasks per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
