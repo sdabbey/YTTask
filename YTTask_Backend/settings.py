@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-*x-)$z#9_xoq$8l0d%8#-@tbi*lrfrhmxjfqj3vbi^t9&(z@=o
 DEBUG = True
 
 ALLOWED_HOSTS = [".vercel.app", "yttask.up.railway.app"]
-#CSRF_TRUSTED_ORIGINS = ['https://6c12-154-160-11-237.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://yttask.up.railway.app']
 
 
 # Application definition
@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'staticfiles_build')
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
