@@ -15,19 +15,20 @@ def dashboard(request):
 
     # Use only() to fetch specific fields from YTTasker_task and Task
     yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
-    print(yttasker_tasks)
-    point_sum=0
-    for yttasker_task in yttasker_tasks:
-        if yttasker_task.completed is True:
-            task_points = point_sum + yttasker_task.task.point
+
+    # point_sum=0
+    # for yttasker_task in yttasker_tasks:
+    #     if yttasker_task.completed is True:
+    #         task_points = task_points + yttasker_task.task.point
     #task_points = YTTasker_task.objects.filter(tasker=request.user, completed=True).values_list('task__point', flat=True)
-    
+    task_points = yttasker_tasks.filter(completed=True).values_list('task__point', flat=True)
 
     # Calculate the point_sum directly from the flat list
-    #point_sum = sum(point for point in task_points if point is not None)
-    if YTTasker_payout.objects.filter(tasker__email=request.user).exists() is False:
+    point_sum = sum(point for point in task_points if point is not None)
+    yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user)
+    if yttasker_payout is False:
         YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
- 
+    yttasker_payout.payout = task_points
         
     # Paginate the tasks
     paginator = Paginator(tasks, 10)  # Show 10 tasks per page
@@ -80,8 +81,8 @@ def user_profile(request):
 
 @login_required(login_url="accounts:login_yttasker")
 def check_complete(request, id):
-    yttasker_task = YTTasker_task.objects.filter(task=id, tasker=request.user).first()
-    
+    yttasker_task = YTTasker_task.objects.get(task=id, tasker=request.user)
+    print(yttasker_task)
     if request.method == "POST":
         code = request.POST.get("check_number")
         if code == yttasker_task.task.secret_code:
