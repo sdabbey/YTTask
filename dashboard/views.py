@@ -6,7 +6,8 @@ from dashboard.models import Notification
 from accounts.forms import ProfileForm
 from django.core.paginator import Paginator
 
-# Create your views here.
+
+
 tasks = Task.objects.all()
 
 def dashboard(request):
@@ -14,7 +15,7 @@ def dashboard(request):
 
 
     # Use only() to fetch specific fields from YTTasker_task and Task
-    yttasker_tasks = YTTasker_task.objects.select_related('task').filter(tasker=request.user)
+    yttasker_tasks = YTTasker_task.objects.filter(tasker=request.user)
 
     # point_sum=0
     # for yttasker_task in yttasker_tasks:
@@ -25,10 +26,15 @@ def dashboard(request):
 
     # Calculate the point_sum directly from the flat list
     point_sum = sum(point for point in task_points if point is not None)
-    yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user)
-    if yttasker_payout is False:
-        YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
-    yttasker_payout.payout = task_points
+    yttasker_payout, created = YTTasker_payout.objects.get_or_create(tasker=request.user)
+    yttasker_payout.payout = point_sum
+    yttasker_payout.save()
+
+
+    # yttasker_payout = YTTasker_payout.objects.get(tasker__email=request.user)
+    # if yttasker_payout is False:
+    #     YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
+    # yttasker_payout.payout = task_points
         
     # Paginate the tasks
     paginator = Paginator(tasks, 10)  # Show 10 tasks per page
@@ -38,7 +44,7 @@ def dashboard(request):
     return render(request, "dashboard/dashboard.html", {
         "page_obj": page_obj,
         "yttasker_tasks": yttasker_tasks,
-        "point_sum": YTTasker_payout.objects.get(tasker__email=request.user).payout
+        "point_sum": yttasker_payout.payout
     })
 
 
