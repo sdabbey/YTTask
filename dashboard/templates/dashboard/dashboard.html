@@ -63,7 +63,7 @@
                         
                         {% for yttasker_task in yttasker_tasks %}
                             
-                                {% if yttasker_task.completed is True %}
+                                {% if yttasker_task.completed is True and task.prompt == yttasker_task.task.prompt %}
                                 <div class="completed">
                                     <small>Completed</small>
                                     <i class="bx bx-check-circle"></i>
