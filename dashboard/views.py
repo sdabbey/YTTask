@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 
 from YTTask_Backend.views import tasks
 
+@login_required(login_url="accounts:login_yttasker")
 def dashboard(request):
     # Fetch all tasks
 
