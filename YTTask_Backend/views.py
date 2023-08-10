@@ -3,6 +3,8 @@ from accounts.models import User
 from dashboard.models import Task, YTTasker_task
 import json
 
+
+tasks = Task.objects.all()
 def home(request):
     return render(request, "landingpage.html")
 
