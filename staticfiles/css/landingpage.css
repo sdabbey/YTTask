@@ -1,0 +1,187 @@
+.landingpage {
+  width: 100%;
+  height: calc(100% - 120px);
+  overflow: hidden;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.landingpage::-webkit-scrollbar {
+  width: 0.5rem;
+  background: transparent;
+  height: 2rem;
+}
+.landingpage::-webkit-scrollbar-thumb {
+  height: 2rem;
+  border-radius: 20px 20px;
+  margin: 20rem;
+  background-color: rgba(211, 211, 211, 0.3647058824);
+}
+.landingpage::-webkit-scrollbar-track {
+  width: 2%;
+  padding: 4rem;
+}
+.landingpage::-webkit-scrollbar-track-piece {
+  width: 20px;
+}
+.landingpage .notification {
+  display: flex;
+  width: 50%;
+  border: 1px solid red;
+  border-radius: 10px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.landingpage .notification small {
+  font-size: 1em;
+  font-family: "Ubuntu";
+  padding: 0.5rem;
+  font-weight: bold;
+}
+.landingpage .main-page {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  height: 80%;
+  justify-content: space-around;
+}
+.landingpage .main-page .left-section {
+  width: 50%;
+  height: 100%;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+.landingpage .main-page .left-section h3 {
+  font-size: 4em;
+  margin: 0;
+  font-family: "Open Sans";
+}
+.landingpage .main-page .left-section p {
+  font-size: 1em;
+  font-family: "Poppins";
+}
+.landingpage .main-page .left-section .btn {
+  padding: 1rem 2.5rem;
+  width: 20%;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  font-family: "Open Sans";
+  background: black;
+}
+.landingpage .main-page .right-section {
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.landingpage .main-page .right-section img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+@media screen and (max-width: 1024px) {
+  .landingpage {
+    width: 100%;
+    height: calc(100% - 120px);
+    overflow-y: scroll;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+  }
+  .landingpage::-webkit-scrollbar {
+    width: 0.5rem;
+    background: transparent;
+    height: 2rem;
+  }
+  .landingpage::-webkit-scrollbar-thumb {
+    height: 2rem;
+    border-radius: 20px 20px;
+    margin: 20rem;
+    background-color: rgba(211, 211, 211, 0.3647058824);
+  }
+  .landingpage::-webkit-scrollbar-track {
+    width: 2%;
+    padding: 4rem;
+  }
+  .landingpage::-webkit-scrollbar-track-piece {
+    width: 20px;
+  }
+  .landingpage .notification {
+    display: flex;
+    width: 100%;
+    border: 1px solid red;
+    border-radius: 10px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .landingpage .notification small {
+    font-size: 1em;
+    font-family: "Ubuntu";
+    padding: 1rem;
+    font-weight: bold;
+  }
+  .landingpage .main-page {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    height: -moz-fit-content;
+    height: fit-content;
+    justify-content: flex-start;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  .landingpage .main-page .left-section {
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+  .landingpage .main-page .left-section h3 {
+    font-size: 3em;
+  }
+  .landingpage .main-page .left-section p {
+    word-spacing: 0.1cm;
+  }
+  .landingpage .main-page .left-section .btn {
+    padding: 1rem 2.5rem;
+    width: -moz-fit-content;
+    width: fit-content;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-family: "Open Sans";
+    white-space: nowrap;
+    background: black;
+    border-radius: 5px;
+    border: none;
+  }
+  .landingpage .main-page .right-section {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .landingpage .main-page .right-section img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+}/*# sourceMappingURL=landingpage.css.map */
