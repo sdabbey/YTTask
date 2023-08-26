@@ -24,7 +24,7 @@
 
 .main .main-content .card-container {
   width: 90%;
-  height: 75%;
+  height: 80%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -258,7 +258,7 @@
     overflow-x: hidden;
     display: flex;
     align-items: flex-start;
-    height: 68%;
+    height: 75%;
    
     overflow-y: scroll;
   }
