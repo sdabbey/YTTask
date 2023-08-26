@@ -24,15 +24,14 @@
 
 .main .main-content .card-container {
   width: 90%;
-  height: 80%;
+  height: 85%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   gap: 15px;
   padding: 1rem 0rem;
-
-
+  
 }
 .main .main-content .card-container::-webkit-scrollbar {
   width: 0.5rem;
@@ -258,7 +257,7 @@
     overflow-x: hidden;
     display: flex;
     align-items: flex-start;
-    height: 75%;
+    height: 80%;
    
     overflow-y: scroll;
   }
