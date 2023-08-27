@@ -35,9 +35,11 @@ def dashboard(request):
     yttasker_payout = YTTasker_payout.objects.filter(tasker__email=request.user).exists()
     if yttasker_payout is False:
         YTTasker_payout.objects.create(tasker=request.user, payout=point_sum)
-    yttasker_payout = YTTasker_payout.objects.get(tasker=request.user)
-    yttasker_payout.payout = point_sum
-    yttasker_payout.save()
+    else:
+        yttasker_payout_old = YTTasker_payout.objects.get(tasker=request.user)
+        point_sum = yttasker_payout_old.payout + point_sum
+        yttasker_payout_old.payout = point_sum
+        
     # Paginate the tasks
     paginator = Paginator(tasks, 10)  # Show 10 tasks per page
     page_number = request.GET.get('page')
